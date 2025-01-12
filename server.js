@@ -4,9 +4,9 @@ import messageRoutes from "./routes/message.routes.js";
 import userRoutes from "./routes/user.routes.js";
 import dotenv from "dotenv";
 import connectmongoose from "./db/connectmongoose.js";
+import { app, server } from "./socket/socket.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-const app = express();
 dotenv.config();
 
 const PORT = process.env.PORT || 5000;
@@ -30,7 +30,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 app.use("/api/users", userRoutes);
 // Start server and connect to MongoDB
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   connectmongoose();
   console.log("Connected to mongoose function");
   console.log(`Server running on port ${PORT}`);
